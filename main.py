@@ -6,8 +6,12 @@ def clear():
     os.system('clear' if os.name != 'nt' else 'cls')
 
 def screen(grid):
-    for row in grid:
-        print(row)
+    count = 0
+    for row in range(0, len(grid)):
+        for col in range(0, len(grid[0])):
+            print(grid[row][col],end=' ')
+            count=+1
+        print('')
 
 def gen_grid(xlen,ylen):
     grid =[]
@@ -64,8 +68,9 @@ def cell_checker(grid):
 
 if __name__ == '__main__':
     #init
-    grid = gen_grid(int(20), int(20))
-    random_placer(grid,40)
+    grid = gen_grid(int(input('Grid height: ')), int(input('grid length: ')))
+    random_placer(grid,int(input('How many squares coloured?: ')))
+    speed = float(input('How many seconds between each cycle: '))
     # screen(grid)
     # grid = cell_checker(grid)
     # screen(grid)
@@ -74,7 +79,7 @@ if __name__ == '__main__':
     while True:
         screen(grid)
         grid = cell_checker(grid)
-        sleep(1)
+        sleep(speed)
         clear()
         # exit()
         pass
