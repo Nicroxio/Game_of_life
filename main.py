@@ -65,19 +65,25 @@ def cell_checker(grid):
 
     return new_grid
 
+try:
+    if __name__ == '__main__':
+        # init
+        grid = gen_grid(int(input('Grid height: ')), int(input('grid length: ')))
+        random_placer(grid, int(input('How many squares coloured?: ')))
+        speed = float(input('How many seconds between each cycle: '))
 
-if __name__ == '__main__':
-    # init
-    grid = gen_grid(int(input('Grid height: ')), int(input('grid length: ')))
-    random_placer(grid, int(input('How many squares coloured?: ')))
-    speed = float(input('How many seconds between each cycle: '))
+        # main loop
+        Screen = curses.initscr()
+        while True:
+            screen(grid)
+            grid = cell_checker(grid)
+            sleep(speed)
 
-    # main loop
-    Screen = curses.initscr()
-    while True:
-        screen(grid)
-        grid = cell_checker(grid)
-        sleep(speed)
+    curses.napms(4000)
 
-curses.napms(4000)
-curses.endwin()
+except(KeyboardInterrupt):
+    curses.endwin()
+    print("Closing Program")
+except:
+    curses.endwin()
+    print("ERROR")
