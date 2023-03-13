@@ -1,5 +1,4 @@
 import pygame
-from math import trunc
 import random 
 
 size = 1000,1000
@@ -78,33 +77,46 @@ grid = gen_grid(X,Y)
 random_placer(grid, 1000)
 display = pygame.display.set_mode(size)
 
-
+click = False
+pause = False
 
 running = True     
 while running:
-    click = False
+    
     for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                running = False
+            elif event.key == pygame.K_SPACE:
+                if pause:
+                    pause=False
+                else:
+                    pause=True
         if event.type == pygame.MOUSEMOTION:
             MouseX, MouseY = pygame.mouse.get_pos()
-        elif event.type == pygame.K_ESCAPE:
-            running = False
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouseButtons = pygame.mouse.get_pressed(num_buttons=3)
-            if mouseButtons[0] == True:
-                click = True
+            if mouseButtons[0]:
+                click=True
+            else:  
+                click=False
 
+    mouseOnGridX=MouseX//10
+    mouseOnGridY=MouseY//10
 
-    print(MouseX, MouseY)
+    print(mouseOnGridX, mouseOnGridY)
     print(click)
-
+    if click:
+        grid[mouseOnGridX][mouseOnGridY]="█"
+    else:
+        pass
     display.fill(WHITE)
     drawGrid(grid)
     # drawGrid(10)
     pygame.display.update()
-    grid = cell_checker(grid)
+
+    if pause != True:
+        grid = cell_checker(grid)
+    else:
+        pass
     
-
-
-
-
-
