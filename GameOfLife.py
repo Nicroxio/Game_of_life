@@ -1,26 +1,14 @@
 import os
 from time import sleep
 import random
-import curses
-
-
-
-def screen(grid):
-    count = 0
-    for row in range(0, len(grid)):
-        for col in range(0, len(grid[0])):
-            Screen.addstr(row,col,grid[row][col])
-            Screen.refresh()
-            count = +1
-        print('')
 
 
 def gen_grid(xlen, ylen):
     grid = []
-    for num in range(0, ylen):
+    for num in range(0, xlen):
         grid.append([])
     for row in grid:
-        for num in range(0, xlen):
+        for num in range(0, ylen):
             row.append(' ')
     return grid
 
@@ -64,24 +52,14 @@ def cell_checker(grid):
 
     return new_grid
 
-try:
-    if __name__ == '__main__':
-        # init
-        
-        speed = float(input('How many seconds between each cycle: '))
 
-        # main loop
-        Screen = curses.initscr()
-        while True:
-            screen(grid)
-            grid = cell_checker(grid)
-            sleep(speed)
+def main(X,Y):
+    grid = gen_grid(X, Y)
+    random_placer(grid, 10)
+    speed = 1
+    while True:
+        print(grid)
+        grid = cell_checker(grid)
+        sleep(speed)
 
-    curses.napms(4000)
 
-except(KeyboardInterrupt):
-    curses.endwin()
-    print("Closing Program")
-except:
-    curses.endwin()
-    print("ERROR")
