@@ -1,4 +1,4 @@
-# A Really shitty game of life clone
+# A Really Shitty Game of Life Clone
 It's just ass
 ## "Features"
 * Saving
@@ -6,5 +6,5 @@ It's just ass
 * Pause
 * Game of Life
 
-## How to use Examples
-* rename the Example to Save and move it into the main folder
+## How to Use Examples
+* Rename the example to "Save" and move it into the main folder
