@@ -7,10 +7,14 @@ class Launcher(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
         self.GridSize = 0
-        self.button = QtWidgets.QPushButton("Launch")
-        self.inputGrid = QtWidgets.QLineEdit()
-        self.text = QtWidgets.QLabel("Grid Size")
         self.layout = QtWidgets.QGridLayout(self)
+        self.launcherScreen()
+
+
+    def launcherScreen(self):
+        self.inputGrid = QtWidgets.QLineEdit()
+        self.button = QtWidgets.QPushButton("Launch")
+        self.text = QtWidgets.QLabel("Grid Size")
         self.layout.addWidget(self.text, 1, 0)
         self.layout.addWidget(self.inputGrid, 2,0)
         self.layout.addWidget(self.button,4,1)
@@ -26,11 +30,7 @@ class Launcher(QtWidgets.QWidget):
 
     def launch(self):
         self.grid = init(self.GridSize,self.GridSize)
-        mainLoop((self.GridSize,self.GridSize),self.X,self.Y,self.grid)
-
-
-        
-        
+        mainLoop((self.GridSize,self.GridSize),self.X,self.Y,self.grid)        
 
 
 if __name__ == "__main__":
