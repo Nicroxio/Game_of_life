@@ -2,24 +2,21 @@ import pygame
 import random 
 
 size = 1000,1000
-WINDOW_HEIGHT = 100
-WINDOW_WIDTH = 100
+X = int(size[0]/10)
+Y = int(size[1]/10)
 
+
+
+#Colours
 BLACK = 0,0,0
 WHITE = 255,255,255
-X = 100
-Y = 100
-MouseX = 0
-MouseY = 0
-click = False
-mouseButtons = ()
 
-def cell_checker(grid):
+def cell_checker(grid,X,Y):
     check_cells = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
     count = 0
-    new_grid = gen_grid(len(grid), len(grid[0]))
-    for row in range(0, len(grid)):
-        for col in range(0, len(grid[0])):
+    new_grid = gen_grid(X, Y)
+    for row in range(X):
+        for col in range(Y):
 
             for coord in check_cells:
                 one, two = coord
@@ -60,10 +57,10 @@ def gen_grid(xlen, ylen):
             row.append(' ')
     return grid
 
-def drawGrid(grid):
+def drawGrid(grid,WINDOW_WIDTH,WINDOW_HEIGHT,display):
     thickness = 1
-    for x in range(len(grid[0])):
-        for y in range(len(grid[1])):
+    for x in range(WINDOW_WIDTH):
+        for y in range(WINDOW_HEIGHT):
             rect = pygame.Rect(x*10,y*10,WINDOW_WIDTH/10,WINDOW_HEIGHT/10)
             if grid[x][y] == '█':
                 thickness = 1000
@@ -71,52 +68,74 @@ def drawGrid(grid):
                 thickness = 1
             pygame.draw.rect(display,BLACK,rect,thickness)
 
+# pygame.display.set_caption("Game Of Life")
 
-pygame.display.set_caption("Game Of Life")
-grid = gen_grid(X,Y)
-random_placer(grid, 1000)
-display = pygame.display.set_mode(size)
 
-click = False
-pause = False
+def init(X,Y):
+    grid = gen_grid(X,Y)
+    # random_placer(grid, 1000)
+    return grid
 
-running = True     
-while running:
-    
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                running = False
-            elif event.key == pygame.K_SPACE:
-                if pause:
-                    pause=False
-                else:
-                    pause=True
-        if event.type == pygame.MOUSEMOTION:
-            MouseX, MouseY = pygame.mouse.get_pos()
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            mouseButtons = pygame.mouse.get_pressed(num_buttons=3)
-            if mouseButtons[0]:
-                click=True
-            else:  
-                click=False
 
-    mouseOnGridX=MouseX//10
-    mouseOnGridY=MouseY//10
 
-    print(mouseOnGridX, mouseOnGridY)
-    print(click)
-    if click:
-        grid[mouseOnGridX][mouseOnGridY]="█"
-    else:
-        pass
-    display.fill(WHITE)
-    drawGrid(grid)
-    # drawGrid(10)
-    pygame.display.update()
 
-    if pause != True:
-        grid = cell_checker(grid)
-    else:
-        pass
-    
+def mainLoop(size,X,Y,grid): 
+    display = pygame.display.set_mode(size) 
+    click = False
+    pause = True  
+    mode = False
+    running = True
+    MouseX = 0
+    MouseY = 0
+    mouseButtons = ()
+    while running:
+        
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    running = False
+                elif event.key == pygame.K_SPACE:
+                    if pause:
+                        pause=False
+                    else:
+                        pause=True
+                elif event.key == pygame.K_1:
+                    if mode:
+                        mode = False
+                    else:
+                        mode = True
+
+            if event.type == pygame.MOUSEMOTION:
+                MouseX, MouseY = pygame.mouse.get_pos()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouseButtons = pygame.mouse.get_pressed(num_buttons=3)
+                if mouseButtons[0]:
+                    click=True
+                else:  
+                    click=False
+
+
+        mouseOnGridX=MouseX//10
+        mouseOnGridY=MouseY//10
+
+        print(mouseOnGridX, mouseOnGridY)
+        print(click)
+        if click:
+            grid[mouseOnGridX][mouseOnGridY]="█"
+        else:
+            pass
+        display.fill(WHITE)
+        drawGrid(grid,X,Y,display)
+        # drawGrid(10)
+        pygame.display.update()
+
+        if pause != True:
+            grid = cell_checker(grid,X,Y)
+        if mode != True:
+            click=False
+        
+def main():
+    grid = init(X,Y)
+    mainLoop(size,X,Y,grid)
+
+# main()
