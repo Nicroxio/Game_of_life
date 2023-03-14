@@ -16,6 +16,7 @@ class Launcher(QtWidgets.QWidget):
         self.buttonLaunch = QtWidgets.QPushButton("Launch")
         self.buttonLoad = QtWidgets.QPushButton("Launch Save")
         self.textGrid = QtWidgets.QLabel("Grid Size")
+
         self.layout.addWidget(self.textGrid, 1, 0)
         self.layout.addWidget(self.inputGrid, 2,0)
         self.layout.addWidget(self.buttonLoad, 4, 2)

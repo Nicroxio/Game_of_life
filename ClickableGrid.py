@@ -136,10 +136,12 @@ def mainLoop(size,X,Y,grid):
 
         print(mouseOnGridX, mouseOnGridY)
         print(click)
-        if click:
+        if click and grid[mouseOnGridX][mouseOnGridY]==" ":
             grid[mouseOnGridX][mouseOnGridY]="█"
-        else:
-            pass
+        elif click and grid[mouseOnGridX][mouseOnGridY]=="█":
+            grid[mouseOnGridX][mouseOnGridY]=" "
+
+            
         display.fill(WHITE)
         drawGrid(grid,X,Y,display)
         # drawGrid(10)
