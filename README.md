@@ -1,6 +1,10 @@
 # A Really shitty game of life clone
 It's just ass
-## Problems
-* The main issues are that, it breaks if you define a grid larger than your terminal
-* I can't remember if it works with windows or not
-* Its taped together with poorly written garbage
+## "Features"
+* Saving
+* Drawing
+* Pause
+* Game of Life
+
+## How to use Examples
+* rename the Example to Save and move it into the main folder
