@@ -12,8 +12,8 @@ Y = int(size[1]/10)
 BLACK = 0,0,0
 WHITE = 255,255,255
 
-def save(grid):
-    file = open("Save","w+")
+def save(grid,path):
+    file = open(str(path),"w+")
     file.write(dumps(grid))
     file.close()
 
@@ -94,7 +94,7 @@ def init(X,Y,Load,Path):
 
 
 
-def mainLoop(size,X,Y,grid): 
+def mainLoop(size,X,Y,grid,saveLocation): 
     pygame.display.set_caption("Game Of Life")
     display = pygame.display.set_mode(size) 
     click = False
@@ -152,11 +152,11 @@ def mainLoop(size,X,Y,grid):
         if mode != True:
             click=False
         if running == False:
-            save(grid)
+            save(grid,saveLocation)
         
 def main():
     grid = init(X,Y,True,"./Save")
-    mainLoop(size,X,Y,grid)
+    mainLoop(size,X,Y,grid,"./Save")
 
 if __name__ == "__main__":
     main()
