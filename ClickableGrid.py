@@ -1,5 +1,6 @@
 import pygame
 import random 
+from json import dumps, loads
 
 size = 1000,1000
 X = int(size[0]/10)
@@ -10,6 +11,17 @@ Y = int(size[1]/10)
 #Colours
 BLACK = 0,0,0
 WHITE = 255,255,255
+
+def save(grid):
+    file = open("Save","w+")
+    file.write(dumps(grid))
+    file.close()
+
+def load(path):
+    file = open(str(path),"r")
+    grid = loads(file.read())
+    file.close()
+    return grid
 
 def cell_checker(grid,X,Y):
     check_cells = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
@@ -68,11 +80,14 @@ def drawGrid(grid,WINDOW_WIDTH,WINDOW_HEIGHT,display):
                 thickness = 1
             pygame.draw.rect(display,BLACK,rect,thickness)
 
-# pygame.display.set_caption("Game Of Life")
 
 
-def init(X,Y):
-    grid = gen_grid(X,Y)
+
+def init(X,Y,Load,Path):
+    if Load:
+        grid = load(Path)
+    else:
+        grid = gen_grid(X,Y)
     # random_placer(grid, 1000)
     return grid
 
@@ -80,6 +95,7 @@ def init(X,Y):
 
 
 def mainLoop(size,X,Y,grid): 
+    pygame.display.set_caption("Game Of Life")
     display = pygame.display.set_mode(size) 
     click = False
     pause = True  
@@ -133,9 +149,12 @@ def mainLoop(size,X,Y,grid):
             grid = cell_checker(grid,X,Y)
         if mode != True:
             click=False
+        if running == False:
+            save(grid)
         
 def main():
-    grid = init(X,Y)
+    grid = init(X,Y,True,"./Save")
     mainLoop(size,X,Y,grid)
 
-# main()
+if __name__ == "__main__":
+    main()
