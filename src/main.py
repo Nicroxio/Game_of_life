@@ -4,12 +4,11 @@ import random
 import curses
 
 
-
 def screen(grid):
     count = 0
     for row in range(0, len(grid)):
         for col in range(0, len(grid[0])):
-            Screen.addstr(row,col,grid[row][col])
+            Screen.addstr(row, col, grid[row][col])
             Screen.refresh()
             count = +1
         print('')
@@ -33,7 +32,8 @@ def random_placer(grid, Random_num):
 
 
 def cell_checker(grid):
-    check_cells = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+    check_cells = [(-1, -1), (-1, 0), (-1, 1), (0, -1),
+                   (0, 1), (1, -1), (1, 0), (1, 1)]
     count = 0
     new_grid = gen_grid(len(grid), len(grid[0]))
     for row in range(0, len(grid)):
@@ -64,10 +64,11 @@ def cell_checker(grid):
 
     return new_grid
 
+
 try:
     if __name__ == '__main__':
         # init
-        
+
         speed = float(input('How many seconds between each cycle: '))
 
         # main loop
@@ -79,7 +80,7 @@ try:
 
     curses.napms(4000)
 
-except(KeyboardInterrupt):
+except (KeyboardInterrupt):
     curses.endwin()
     print("Closing Program")
 except:

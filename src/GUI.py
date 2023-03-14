@@ -2,6 +2,7 @@ from PySide6 import QtCore, QtWidgets, QtGui
 import sys
 from ClickableGrid import init, mainLoop
 
+
 class Launcher(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
@@ -10,7 +11,6 @@ class Launcher(QtWidgets.QWidget):
         self.shouldLoad = False
         self.layout = QtWidgets.QGridLayout(self)
         self.launcherScreen()
-
 
     def launcherScreen(self):
         self.inputGrid = QtWidgets.QLineEdit()
@@ -21,11 +21,11 @@ class Launcher(QtWidgets.QWidget):
         self.textSaveName = QtWidgets.QLabel("Save Name")
 
         self.layout.addWidget(self.textGrid, 1, 0)
-        self.layout.addWidget(self.inputGrid, 2,0)
+        self.layout.addWidget(self.inputGrid, 2, 0)
         self.layout.addWidget(self.textSaveName, 3, 0)
         self.layout.addWidget(self.inputSaveName, 4, 0)
         self.layout.addWidget(self.buttonLoad, 5, 2)
-        self.layout.addWidget(self.buttonLaunch,5,1)
+        self.layout.addWidget(self.buttonLaunch, 5, 1)
         self.buttonLaunch.clicked.connect(self.storeValue)
         self.buttonLaunch.clicked.connect(self.run)
         self.buttonLoad.clicked.connect(self.storeValue)
@@ -38,7 +38,6 @@ class Launcher(QtWidgets.QWidget):
         self.Y = int(self.GridSize/10)
         print(f"{self.GridSize} {self.X} {self.Y} {self.saveLocation}")
 
-
     def load(self):
         self.shouldLoad = True
         self.close()
@@ -48,10 +47,11 @@ class Launcher(QtWidgets.QWidget):
         self.close()
         self.launch()
 
-
     def launch(self):
-        self.grid = init(self.GridSize,self.GridSize,self.shouldLoad,self.saveLocation)
-        mainLoop((self.GridSize,self.GridSize),self.X,self.Y,self.grid,self.saveLocation)        
+        self.grid = init(self.GridSize, self.GridSize,
+                         self.shouldLoad, self.saveLocation)
+        mainLoop((self.GridSize, self.GridSize), self.X,
+                 self.Y, self.grid, self.saveLocation)
 
 
 if __name__ == "__main__":

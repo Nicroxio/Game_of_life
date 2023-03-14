@@ -21,7 +21,8 @@ def random_placer(grid, Random_num):
 
 
 def cell_checker(grid):
-    check_cells = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+    check_cells = [(-1, -1), (-1, 0), (-1, 1), (0, -1),
+                   (0, 1), (1, -1), (1, 0), (1, 1)]
     count = 0
     new_grid = gen_grid(len(grid), len(grid[0]))
     for row in range(0, len(grid)):
@@ -53,7 +54,7 @@ def cell_checker(grid):
     return new_grid
 
 
-def main(X,Y):
+def main(X, Y):
     grid = gen_grid(X, Y)
     random_placer(grid, 10)
     speed = 1
@@ -61,5 +62,3 @@ def main(X,Y):
         print(grid)
         grid = cell_checker(grid)
         sleep(speed)
-
-
